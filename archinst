@@ -35,7 +35,7 @@ main() {
 
 trap cleanup EXIT
 
-# check_root
+check_root
 load_configfile
 parse_args "${ARGS[@]}"
 check_args
