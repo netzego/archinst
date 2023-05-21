@@ -15,6 +15,4 @@ print_vars() {
     printf "%s %16s: %s\n" "${INFO_PREFIX}" "DEBUG" "${DEBUG}"
     printf "%s %16s: %s\n" "${INFO_PREFIX}" "POS_ARGS" "${POS_ARGS[*]}"
     printf "%s %16s: %s\n" "${INFO_PREFIX}" "POS_ARGS_LENGTH" "${#POS_ARGS[@]}"
-    printf "%s %16s: %s\n" "${INFO_PREFIX}" "FOO" "${FOO}"
-    printf "%s %16s: %s\n" "${INFO_PREFIX}" "BAR" "${BAR}"
 }
