@@ -7,8 +7,8 @@ VERSION=false
 DEBUG="${DEBUG:-false}"
 VERBOSE="${VERBOSE:-false}"
 LOGFILE="${LOGFILE:-/dev/null}"
-FOO="${FOO:-abc}"
-BAR="${BAR:-xyz}"
+# FOO="${FOO:-abc}"
+# BAR="${BAR:-xyz}"
 POS_ARGS=()
 
 # DESC: make global args readonly
@@ -19,8 +19,8 @@ readonly_args() {
     readonly DEBUG
     readonly VERBOSE
     readonly LOGFILE
-    readonly FOO
-    readonly BAR
+    # readonly FOO
+    # readonly BAR
     readonly POS_ARGS
 }
 
@@ -40,7 +40,7 @@ exif_startwith_hyphen() {
 # shellcheck disable=SC2154,SC2034
 parse_args() {
     local name="${f_red}***${a_norm} ${SCRIPTNAME}"
-    temp=$(getopt -o "hvdl:f:b:" -l "help,verbose,debug,logfile:,foo:,bar:,version" -n "${name}" -- "$@")
+    temp=$(getopt -o "hvdl:" -l "help,verbose,debug,logfile:,version" -n "${name}" -- "$@")
 
     # `$temp` MUST not be a local variable! otherwise this will NOT work
     # shellcheck disable=SC2181
@@ -80,18 +80,18 @@ parse_args() {
             shift 2
             continue
             ;;
-        "-f" | "--foo")
-            exif_startwith_hyphen "$2"
-            FOO="$2"
-            shift 2
-            continue
-            ;;
-        "-b" | "--bar")
-            exif_startwith_hyphen "$2"
-            BAR="$2"
-            shift 2
-            continue
-            ;;
+        # "-f" | "--foo")
+        #     exif_startwith_hyphen "$2"
+        #     FOO="$2"
+        #     shift 2
+        #     continue
+        #     ;;
+        # "-b" | "--bar")
+        #     exif_startwith_hyphen "$2"
+        #     BAR="$2"
+        #     shift 2
+        #     continue
+        #     ;;
         "--")
             shift
             break
