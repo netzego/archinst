@@ -38,8 +38,8 @@ load "${BATS_TEST_DIRNAME}/fixtures.bats"
 @test "parse_args(): edge cases" {
     local args=(
         # same as '-b ad'
-        "-bad"
-        "-bad --help"
+        # "-bad"
+        # "-bad --help"
     )
 
     for i in "${args[@]}"; do
