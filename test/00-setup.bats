@@ -4,9 +4,9 @@
 load "${BATS_TEST_DIRNAME}/fixtures.bats"
 
 @test "overwriten variables \$0 and \$BASH_ARGV0" {
-    [ "${BASH_ARGV0}" = "bashskel.bash" ]
+    [ "${BASH_ARGV0}" = "archinst" ]
     [ "${BASH_ARGV0}" = "$0" ]
-    [ "${SCRIPTNAME}" = "bashskel" ]
+    [ "${SCRIPTNAME}" = "archinst" ]
 }
 
 # NOTE: this should be enough to see if sourcing from include/ works
