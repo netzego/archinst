@@ -1,4 +1,4 @@
-PROGNAME		:= bashskel.bash
+PROGNAME		:= archinst
 BATS			!= which bats
 BATS_OPTIONS	:= --verbose-run --show-output-of-passing-tests
 BATS_GLOB		?=
