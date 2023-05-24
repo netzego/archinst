@@ -22,6 +22,7 @@ readonly_args() {
     # readonly FOO
     # readonly BAR
     readonly POS_ARGS
+    readonly DEVICE
 }
 
 # DESC: test if string do NOT start with a hyphen
@@ -107,6 +108,12 @@ parse_args() {
 
     # this does NOT work without braces
     POS_ARGS=("$@")
+
+    if [ ${#POS_ARGS[@]} -ne 1 ]; then
+        die 1 "wrong number of positional parameters"
+    fi
+
+    DEVICE="${POS_ARGS[0]}"
 
     readonly_args
 }
