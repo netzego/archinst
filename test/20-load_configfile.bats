@@ -1,7 +1,9 @@
 #!/bin/bash
 # shellcheck disable=SC2154
 
-load "${BATS_TEST_DIRNAME}/fixtures.bats"
+load "${BATS_TEST_DIRNAME}/fixtures.bash"
+load "${BATS_TEST_DIRNAME}/setup_file.bash"
+load "${BATS_TEST_DIRNAME}/setup.bash"
 
 @test "include/load_configfile(): \$configfile exists" {
     run -0 load_configfile
