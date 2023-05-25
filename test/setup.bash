@@ -7,12 +7,7 @@
 setup() {
     readonly BASH_ARGV0="archinst"
 
-}
 
-# DESC: this functions runs once for every bat file
-# ARGS: none
-setup_file() {
-    bats_require_minimum_version 1.5.0
     load "../include/colors.bash"
     load "../include/utils.bash"
     load "../include/vars.bash"
