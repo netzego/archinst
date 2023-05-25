@@ -7,6 +7,7 @@
 setup() {
     readonly BASH_ARGV0="archinst"
 
+    load "fixtures.bash"
 
     load "../include/colors.bash"
     load "../include/utils.bash"
