@@ -23,3 +23,12 @@ fixture_create_image() {
 
     truncate -s 2G "${image}"
 }
+
+# DESC: delete test image
+# ARGS: none
+fixture_delete_image() {
+    local tmpdir="${BATS_SUITE_TMPDIR}"
+    local image="${tmpdir}/test.img"
+
+    rm -v "${image}"
+}
