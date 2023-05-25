@@ -32,3 +32,12 @@ fixture_delete_image() {
 
     rm -v "${image}"
 }
+
+# DESC: attach test image to a loop device
+# ARGS: none
+fixture_attach_image() {
+    local tmpdir="${BATS_SUITE_TMPDIR}"
+    local image="${tmpdir}/test.img"
+
+    losetup --find "${image}"
+}
