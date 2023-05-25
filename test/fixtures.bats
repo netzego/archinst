@@ -1,12 +1,6 @@
 #!/bin/bash
 # shellcheck disable=SC2154
 
-# DESC: this functions runs once for every bat file
-# ARGS: none
-setup_file() {
-    bats_require_minimum_version 1.5.0
-}
-
 # DESC: this functions runs once for every bat function call
 # ARGS: none
 # NOTE: overwrite $0 and $BASH_ARGV0. might not smart or it's a bug in bats?
@@ -27,6 +21,13 @@ setup() {
     source "${SCRIPTDIR}/include/print_version.bash"
     source "${SCRIPTDIR}/include/print_usage.bash"
     source "${SCRIPTDIR}/include/print_vars.bash"
+    source "${SCRIPTDIR}/include/check_device.bash"
+}
+
+# DESC: this functions runs once for every bat file
+# ARGS: none
+setup_file() {
+    bats_require_minimum_version 1.5.0
 }
 
 # DESC: unbind a readonly variable via gdb
