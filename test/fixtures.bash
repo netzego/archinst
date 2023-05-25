@@ -41,3 +41,13 @@ fixture_attach_image() {
 
     losetup --find "${image}"
 }
+
+# DESC: detach test image
+# ARGS: none
+fixture_detach_image() {
+    local tmpdir="${BATS_SUITE_TMPDIR}"
+    local image="${tmpdir}/test.img"
+    local device="$(losetup -j "${image}" | cut -d : -f 1)"
+
+    losetup --detach "${device}"
+}
