@@ -14,3 +14,12 @@ unbind_readonly() {
     # see https://stackoverflow.com/a/17398009
     gdb -ex 'call (int) unbind_variable("'"${varname}"'")' --pid=$$ --batch
 }
+
+# DESC: create test image inside $BATS_SUITE_TMPDIR
+# ARGS: none
+fixture_create_image() {
+    local tmpdir="${BATS_SUITE_TMPDIR}"
+    local image="${tmpdir}/test.img"
+
+    truncate -s 2G "${image}"
+}
