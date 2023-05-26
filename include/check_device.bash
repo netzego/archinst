@@ -15,4 +15,11 @@ check_device() {
     if [ ! -w "${device}" ]; then
         die 1 "\`${device}' is not writable"
     fi
+
+    # check if loop device adn if it is attached to a file
+    if [[ "${device}" = *"loop"* ]]; then
+        if [ "$(losetup -Jl "${device}" | jq '.[][]."back-file"')" == "null" ]; then
+            die 1 "\`${device}' is not attached"
+        fi
+    fi
 }
