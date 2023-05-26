@@ -22,15 +22,23 @@ source "${SCRIPTDIR}/include/print_help.bash"
 source "${SCRIPTDIR}/include/print_version.bash"
 source "${SCRIPTDIR}/include/print_usage.bash"
 source "${SCRIPTDIR}/include/print_vars.bash"
+source "${SCRIPTDIR}/include/check_device.bash"
 
 # ARGS: none
 # NOTE: stdout and stderr will eventually get logged
 main() {
+    if [ "${#POS_ARGS[@]}" -ne 1 ]; then
+        print_usage
+        die 1 "you must specify a device"
+    fi
+
+    readonly DEVICE="${POS_ARGS[0]}"
+
     if [ "${DEBUG}" = true ]; then
         print_vars
     fi
 
-    : # implement your own logic below here
+    check_device "${DEVICE}"
 }
 
 trap cleanup EXIT
