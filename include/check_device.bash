@@ -8,6 +8,10 @@
 check_device() {
     local device="$1"
 
+    if [ ! -e "${device}" ]; then
+        die 1 "\`${device}' do not exists"
+    fi
+
     if [ ! -b "${device}" ]; then
         die 1 "\`${device}' is not a block device"
     fi
