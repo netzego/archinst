@@ -5,10 +5,12 @@ load "${BATS_TEST_DIRNAME}/setup_file.bash"
 load "${BATS_TEST_DIRNAME}/setup.bash"
 
 @test "check_device(): no parameter" {
+    local device=""
 
     run -1 check_device
 
-    [ "${output}" = "${ERR_PREFIX} \`' is not a block device" ]
+    [ "${output}" = "${ERR_PREFIX} \`${device}' do not exists" ]
+}
 }
 
 @test "check_device(): wrong parameter" {
