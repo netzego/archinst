@@ -9,6 +9,8 @@ load "fixtures.bash"
 setup_suite() {
     bats_require_minimum_version 1.5.0
 
+    # test loop13 devive
+    fixture_create_loop13
     # test image
     fixture_create_image
     fixture_attach_image
@@ -18,6 +20,8 @@ setup_suite() {
 }
 
 teardown_suite() {
+    # test loop13 device
+    fixture_remove_loop13
     # test image cleanup
     fixture_detach_image
     fixture_delete_image
