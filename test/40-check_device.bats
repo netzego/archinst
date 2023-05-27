@@ -11,6 +11,13 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
 
     [ "${output}" = "${ERR_PREFIX} \`${device}' do not exists" ]
 }
+
+@test "check_device(): not exists" {
+    local device="/dev/not_exists"
+
+    run -1 check_device "${device}"
+
+    [ "${output}" = "${ERR_PREFIX} \`${device}' do not exists" ]
 }
 
 @test "check_device(): wrong parameter" {
