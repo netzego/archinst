@@ -61,3 +61,13 @@ fixture_create_loop13() {
         mknod -m660 "${loop_device}" b 7 13
     fi
 }
+
+# DESC: remove loop device
+# ARGS: none
+fixture_remove_loop13() {
+    local loop_device="/dev/loop13"
+
+    if [ -b "${loop_device}" ]; then
+        rm -v "${loop_device}"
+    fi
+}
