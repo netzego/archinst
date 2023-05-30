@@ -5,7 +5,7 @@ BATS_GLOB		?=
 CLI_ARGS		?=
 
 test:
-	@$(BATS) $(BATS_OPTIONS) -r test/$(BATS_GLOB)
+	@$(BATS) $(BATS_OPTIONS) -r tests/$(BATS_GLOB)
 
 run:
 	@bash $(PROGNAME) $(CLI_ARGS)
@@ -14,7 +14,7 @@ watch_run:
 	@fd --type f \.bash$$ | entr -c bash $(PROGNAME) $(CLI_ARGS)
 
 watch_test:
-	@fd --type f "\.bats$$|\.bash$$" | entr -c $(BATS) $(BATS_OPTIONS) -r test/$(BATS_GLOB)
+	@fd --type f "\.bats$$|\.bash$$" | entr -c $(BATS) $(BATS_OPTIONS) -r tests/$(BATS_GLOB)
 
 .PHONY: \
 	run \

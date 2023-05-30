@@ -23,4 +23,5 @@ setup() {
     load "../include/print_usage.bash"
     load "../include/print_vars.bash"
     load "../include/check_device.bash"
+    load "../include/print_header.bash"
 }
