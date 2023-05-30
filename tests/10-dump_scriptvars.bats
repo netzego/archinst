@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/bats
 # shellcheck disable=SC2154
 
 load "${BATS_TEST_DIRNAME}/setup_file.bash"

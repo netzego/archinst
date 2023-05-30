@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/bats
 # shellcheck disable=SC2154
 
 @test "print bats special variables" {

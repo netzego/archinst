@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bats
 
 @test "bats is working" {
     # shellcheck disable=SC2050
