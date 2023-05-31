@@ -26,4 +26,5 @@ setup() {
     load "../include/warning.bash"
     load "../include/check_device.bash"
     load "../include/check_network.bash"
+    load "../include/load_keymap.bash"
 }
