@@ -29,6 +29,7 @@ source "${SCRIPTDIR}/include/check_network.bash"
 source "${SCRIPTDIR}/include/load_keymap.bash"
 source "${SCRIPTDIR}/include/check_timedate.bash"
 source "${SCRIPTDIR}/include/write_gpt_table.bash"
+source "${SCRIPTDIR}/include/update_mirrorlist.bash"
 source "${SCRIPTDIR}/include/create_workspace.bash"
 
 # ARGS: none
@@ -51,6 +52,7 @@ main() {
     check_network "archlinux.org" 2 1
     load_keymap "${KEYMAP}"
     check_timedate
+    update_mirrorlist
     create_workspace
 
     # disc preparation
