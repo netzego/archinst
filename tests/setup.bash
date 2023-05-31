@@ -28,5 +28,6 @@ setup() {
     load "../include/check_network.bash"
     load "../include/load_keymap.bash"
     load "../include/check_timedate.bash"
+    load "../include/create_workspace.bash"
     load "../include/write_gpt_table.bash"
 }
