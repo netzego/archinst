@@ -12,5 +12,7 @@ remove_lockfile() {
 # ARGS: none
 # NOTE: this is meant to call from a trap
 cleanup() {
+    print_header "${FUNCNAME[0]}"
+
     remove_lockfile
 }
