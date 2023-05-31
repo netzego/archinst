@@ -8,3 +8,4 @@ readonly LOCKFILE="/tmp/${SCRIPTNAME}.lock"
 readonly CONFIGFILE="${PWD}/${SCRIPTNAME}.config"
 
 BATCHMODE=false
+KEYMAP="us"
