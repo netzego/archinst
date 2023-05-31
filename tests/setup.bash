@@ -25,4 +25,5 @@ setup() {
     load "../include/print_header.bash"
     load "../include/warning.bash"
     load "../include/check_device.bash"
+    load "../include/check_network.bash"
 }
