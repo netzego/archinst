@@ -11,7 +11,7 @@ write_gpt_table() {
 
     sgdisk -Z "${device}"
 
-    sgdisk --new=1::+${uefi_size} --typecode=1:ef00 "${device}"
+    sgdisk --new=1::+"${uefi_size}" --typecode=1:ef00 "${device}"
     sgdisk --new=2::-0 --typecode=2:8300 "${device}"
 
     sgdisk --info 1 "${device}"
