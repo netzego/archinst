@@ -25,6 +25,7 @@ source "${SCRIPTDIR}/include/print_vars.bash"
 source "${SCRIPTDIR}/include/print_header.bash"
 source "${SCRIPTDIR}/include/warning.bash"
 source "${SCRIPTDIR}/include/check_device.bash"
+source "${SCRIPTDIR}/include/check_network.bash"
 
 # ARGS: none
 # NOTE: stdout and stderr will eventually get logged
@@ -41,7 +42,9 @@ main() {
     fi
 
     warning
+
     check_device "${DEVICE}"
+    check_network "archlinux.org" 2 1
 }
 
 trap cleanup EXIT
