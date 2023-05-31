@@ -9,3 +9,4 @@ readonly CONFIGFILE="${PWD}/${SCRIPTNAME}.config"
 
 BATCHMODE=false
 KEYMAP="us"
+UEFI_SIZE="128M"
