@@ -27,4 +27,5 @@ setup() {
     load "../include/check_device.bash"
     load "../include/check_network.bash"
     load "../include/load_keymap.bash"
+    load "../include/check_timedate.bash"
 }
