@@ -29,6 +29,7 @@ source "${SCRIPTDIR}/include/check_network.bash"
 source "${SCRIPTDIR}/include/load_keymap.bash"
 source "${SCRIPTDIR}/include/check_timedate.bash"
 source "${SCRIPTDIR}/include/write_gpt_table.bash"
+source "${SCRIPTDIR}/include/create_workspace.bash"
 
 # ARGS: none
 # NOTE: stdout and stderr will eventually get logged
