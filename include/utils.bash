@@ -10,6 +10,9 @@ readonly ERR_PREFIX="${ERR_COLOR}${ERR_STRING}${a_norm}"
 readonly WARN_COLOR="${f_magenta}"
 readonly WARN_STRING="@@@"
 readonly WARN_PREFIX="${WARN_COLOR}${WARN_STRING}${a_norm}"
+readonly READ_COLOR="${f_magenta}"
+readonly READ_STRING="<<<"
+readonly READ_PREFIX="${READ_COLOR}${READ_STRING}${a_norm}"
 
 # DESC: prints colored $INFO_PREFIX and "$@" to stdout.
 # ARGS: $@: messages to print
