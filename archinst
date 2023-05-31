@@ -50,6 +50,7 @@ main() {
     check_network "archlinux.org" 2 1
     load_keymap "${KEYMAP}"
     check_timedate
+    create_workspace
 
     # disc preparation
     write_gpt_table "${DEVICE}" "${UEFI_SIZE}"
