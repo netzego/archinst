@@ -26,6 +26,7 @@ source "${SCRIPTDIR}/include/print_header.bash"
 source "${SCRIPTDIR}/include/warning.bash"
 source "${SCRIPTDIR}/include/check_device.bash"
 source "${SCRIPTDIR}/include/check_network.bash"
+source "${SCRIPTDIR}/include/load_keymap.bash"
 
 # ARGS: none
 # NOTE: stdout and stderr will eventually get logged
@@ -45,6 +46,7 @@ main() {
 
     check_device "${DEVICE}"
     check_network "archlinux.org" 2 1
+    load_keymap "${KEYMAP}"
 }
 
 trap cleanup EXIT
