@@ -30,4 +30,5 @@ setup() {
     load "../include/check_timedate.bash"
     load "../include/create_workspace.bash"
     load "../include/write_gpt_table.bash"
+    load "../include/update_mirrorlist.bash"
 }
