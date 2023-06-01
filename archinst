@@ -61,11 +61,11 @@ main() {
     readonly ROOTPART="$(ls -1 "${DEVICE}"?2)"
 
     if [ ! -b "${UEFIPART}" ]; then
-        die 42 "\`${UEFIPART}' is not a block device"
+        die 2 "\`${UEFIPART}' is not a block device"
     fi
 
     if [ ! -b "${ROOTPART}" ]; then
-        die 42 "\`${ROOTPART}' is not a block device"
+        die 2 "\`${ROOTPART}' is not a block device"
     fi
 
     luks_format "${ROOTPART}" "${PWD}/archinst.luks"
