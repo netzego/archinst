@@ -31,17 +31,11 @@ source "${SCRIPTDIR}/include/check_timedate.bash"
 source "${SCRIPTDIR}/include/write_gpt_table.bash"
 source "${SCRIPTDIR}/include/update_mirrorlist.bash"
 source "${SCRIPTDIR}/include/create_workspace.bash"
+source "${SCRIPTDIR}/include/luks_format.bash"
 
 # ARGS: none
 # NOTE: stdout and stderr will eventually get logged
 main() {
-    if [ "${#POS_ARGS[@]}" -ne 1 ]; then
-        print_usage
-        die 1 "you must specify a device"
-    fi
-
-    readonly DEVICE="${POS_ARGS[0]}"
-
     if [ "${DEBUG}" = true ]; then
         print_vars
     fi
@@ -59,13 +53,32 @@ main() {
     write_gpt_table "${DEVICE}" "${UEFI_SIZE}"
 }
 
-trap cleanup EXIT
+    readonly UEFIPART="$(ls -1 "${DEVICE}"?1)"
+    readonly ROOTPART="$(ls -1 "${DEVICE}"?2)"
+
+    if [ ! -b "${UEFIPART}" ]; then
+        die 42 "\`${UEFIPART}' is not a block device"
+    fi
+
+    if [ ! -b "${ROOTPART}" ]; then
+        die 42 "\`${ROOTPART}' is not a block device"
+    fi
+
+    luks_format "${ROOTPART}" "${PWD}/archinst.luks"
 
 check_root
 load_configfile
 parse_args "${ARGS[@]}"
 check_args
-write_lockfile
+
+if [ "${#POS_ARGS[@]}" -ne 1 ]; then
+    print_usage
+    die 1 "you must specify a device"
+else
+    readonly DEVICE="${POS_ARGS[0]}"
+fi
+
+trap cleanup EXIT
 
 if [ "${HELP}" = true ]; then
     print_help
@@ -77,6 +90,7 @@ if [ "${VERSION}" = true ]; then
     exit 0
 fi
 
+write_lockfile
 main 2>&1 | tee "${LOGFILE}"
 
 exit 0
