@@ -16,12 +16,25 @@ remove_workspace() {
     fi
 }
 
+# DESC: closes the luks partition
+# ARGS: none
+close_luks_partiton() {
+    local device="${DEVICE}"
+    local mapped_device="$(lsblk --raw -n -p -o NAME,TYPE "${device}" | grep crypt | cut -d ' ' -f 1)"
+
+    if [ -e "${mapped_device}" ]; then
+        echo "close ${mapped_device}"
+        cryptsetup close "${mapped_device}"
+    fi
+}
+
 # DESC: clean up artifacts on exit signals
 # ARGS: none
 # NOTE: this is meant to call from a trap
 cleanup() {
     print_header "${FUNCNAME[0]}"
 
+    close_luks_partiton
     remove_workspace
     remove_lockfile
 }
