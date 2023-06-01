@@ -48,6 +48,7 @@ main() {
     load_keymap "${KEYMAP}"
     check_timedate
     update_mirrorlist
+    update_pacman
     create_workspace
 
     # disc preparation
