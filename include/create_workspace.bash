@@ -10,5 +10,5 @@ create_workspace() {
         die 1 "\`${WORKSPACE}' already exists"
     fi
 
-    mkdir -pv "${WORKSPACE}"
+    mkdir -pv "${WORKSPACE}/mnt"
 }
