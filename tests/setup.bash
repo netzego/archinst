@@ -33,4 +33,5 @@ setup() {
     load "../include/update_mirrorlist.bash"
     load "../include/luks_format.bash"
     load "../include/luks_open.bash"
+    load "../include/update_pacman.bash"
 }
