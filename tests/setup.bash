@@ -35,4 +35,5 @@ setup() {
     load "../include/luks_open.bash"
     load "../include/update_pacman.bash"
     load "../include/mkfs_btrfs.bash"
+    load "../include/mkfs_swapfile.bash"
 }
