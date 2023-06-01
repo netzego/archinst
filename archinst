@@ -34,6 +34,7 @@ source "${SCRIPTDIR}/include/update_pacman.bash"
 source "${SCRIPTDIR}/include/create_workspace.bash"
 source "${SCRIPTDIR}/include/luks_format.bash"
 source "${SCRIPTDIR}/include/luks_open.bash"
+source "${SCRIPTDIR}/include/mkfs_btrfs.bash"
 
 # ARGS: none
 # NOTE: stdout and stderr will eventually get logged
@@ -68,6 +69,14 @@ main() {
 
     luks_format "${ROOTPART}" "${PWD}/archinst.luks"
     luks_open "${ROOTPART}" "${PWD}/archinst.luks"
+
+    readonly LUKSPART="$(lsblk --raw -n -p -o NAME,TYPE "${ROOTPART}" | grep crypt | cut -d ' ' -f 1)"
+
+    if [ ! -e "${LUKSPART}" ]; then
+        die 2 "\`${LUKSPART}' do not exists"
+    fi
+
+    mkfs_btrfs "${LUKSPART}"
 }
 
 check_root

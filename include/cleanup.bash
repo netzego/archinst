@@ -29,12 +29,23 @@ close_luks_partiton() {
     fi
 }
 
+# DESC: umount ${WORKSPACE}/mnt
+# ARGS: none
+umount_workspace_mnt() {
+    local mntpnt="${WORKSPACE}/mnt"
+
+    if mountpoint "${mntpnt}"; then
+        umount -v -R "${mntpnt}"
+    fi
+}
+
 # DESC: clean up artifacts on exit signals
 # ARGS: none
 # NOTE: this is meant to call from a trap
 cleanup() {
     print_header "${FUNCNAME[0]}"
 
+    umount_workspace_mnt
     close_luks_partiton
     remove_workspace
     remove_lockfile
