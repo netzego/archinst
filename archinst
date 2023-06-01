@@ -52,7 +52,6 @@ main() {
 
     # disc preparation
     write_gpt_table "${DEVICE}" "${UEFI_SIZE}"
-}
 
     readonly UEFIPART="$(ls -1 "${DEVICE}"?1)"
     readonly ROOTPART="$(ls -1 "${DEVICE}"?2)"
@@ -67,6 +66,7 @@ main() {
 
     luks_format "${ROOTPART}" "${PWD}/archinst.luks"
     luks_open "${ROOTPART}" "${PWD}/archinst.luks"
+}
 
 check_root
 load_configfile
