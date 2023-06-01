@@ -71,3 +71,30 @@ fixture_remove_loop13() {
         rm -v "${loop_device}"
     fi
 }
+# DESC: creates a keyfile
+# ARGS: none
+fixture_create_keyfile() {
+    local pw="${BATS_FIXTURE_PASSWORD}"
+
+    echo -n "${pw}" >"${BATS_SUITE_TMPDIR}/keyfile"
+}
+
+# DESC: creates test device files inside $BATS_SUITE_TMPDIR
+# ARGS: none
+fixture_create_test_devices() {
+    local char="${BATS_SUITE_TMPDIR}/char"
+    local block="${BATS_SUITE_TMPDIR}/block"
+
+    mknod -m660 "${char}" c 128 128
+    mknod -m660 "${block}" b 128 128
+}
+
+# DESC: removes test device files
+# ARGS: none
+fixture_remove_test_devices() {
+    local char="${BATS_SUITE_TMPDIR}/char"
+    local block="${BATS_SUITE_TMPDIR}/block"
+
+    rm -v "${char}"
+    rm -v "${block}"
+}
