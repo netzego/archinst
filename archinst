@@ -35,6 +35,7 @@ source "${SCRIPTDIR}/include/create_workspace.bash"
 source "${SCRIPTDIR}/include/luks_format.bash"
 source "${SCRIPTDIR}/include/luks_open.bash"
 source "${SCRIPTDIR}/include/mkfs_btrfs.bash"
+source "${SCRIPTDIR}/include/mkfs_swapfile.bash"
 
 # ARGS: none
 # NOTE: stdout and stderr will eventually get logged
@@ -77,6 +78,7 @@ main() {
     fi
 
     mkfs_btrfs "${LUKSPART}"
+    mkfs_swapfile
 }
 
 check_root

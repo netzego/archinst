@@ -11,3 +11,4 @@ readonly WORKSPACE="/tmp/${SCRIPTNAME}-$(openssl rand -hex 8)"
 BATCHMODE=false
 KEYMAP="us"
 UEFI_SIZE="128M"
+SWAP_SIZE="128M"
