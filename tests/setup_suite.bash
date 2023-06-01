@@ -27,6 +27,7 @@ setup_suite() {
 # ARGS: none
 teardown_suite() {
     # test image cleanup
+    fixture_close_luks_partition
     fixture_detach_image
     fixture_delete_image
     # test loop13 device

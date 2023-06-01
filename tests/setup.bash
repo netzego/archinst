@@ -32,4 +32,5 @@ setup() {
     load "../include/write_gpt_table.bash"
     load "../include/update_mirrorlist.bash"
     load "../include/luks_format.bash"
+    load "../include/luks_open.bash"
 }

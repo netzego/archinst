@@ -71,6 +71,19 @@ fixture_remove_loop13() {
         rm -v "${loop_device}"
     fi
 }
+
+# DESC: close luks partiton
+# ARGS: none
+fixture_close_luks_partition() {
+    local device="${BATS_FIXTURE_DEVICE}"
+    local mapped_device="$(lsblk --raw -n -p -o NAME,TYPE "${device}" | grep crypt | cut -d ' ' -f 1)"
+
+    if [ -e "${mapped_device}" ]; then
+        echo "close ${mapped_device}"
+        cryptsetup close "${mapped_device}"
+    fi
+}
+
 # DESC: creates a keyfile
 # ARGS: none
 fixture_create_keyfile() {
