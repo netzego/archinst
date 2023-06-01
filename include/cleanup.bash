@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2154
 
 # DESC: remove $LOCKFILE if any
 # ARGS: none
