@@ -32,6 +32,7 @@ source "${SCRIPTDIR}/include/write_gpt_table.bash"
 source "${SCRIPTDIR}/include/update_mirrorlist.bash"
 source "${SCRIPTDIR}/include/create_workspace.bash"
 source "${SCRIPTDIR}/include/luks_format.bash"
+source "${SCRIPTDIR}/include/luks_open.bash"
 
 # ARGS: none
 # NOTE: stdout and stderr will eventually get logged
@@ -65,6 +66,7 @@ main() {
     fi
 
     luks_format "${ROOTPART}" "${PWD}/archinst.luks"
+    luks_open "${ROOTPART}" "${PWD}/archinst.luks"
 
 check_root
 load_configfile
