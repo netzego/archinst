@@ -8,6 +8,7 @@ readonly LOCKFILE="/tmp/${SCRIPTNAME}.lock"
 readonly CONFIGFILE="${PWD}/${SCRIPTNAME}.config"
 readonly WORKSPACE="/tmp/${SCRIPTNAME}-$(openssl rand -hex 8)"
 readonly MOUNTPOINT="${WORKSPACE}/mnt"
+readonly BTRFS_OPTIONS="noatime,compress=zstd"
 
 BATCHMODE=false
 KEYMAP="us"
