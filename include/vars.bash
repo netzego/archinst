@@ -7,6 +7,7 @@ readonly VERSION_NUMBER="0"
 readonly LOCKFILE="/tmp/${SCRIPTNAME}.lock"
 readonly CONFIGFILE="${PWD}/${SCRIPTNAME}.config"
 readonly WORKSPACE="/tmp/${SCRIPTNAME}-$(openssl rand -hex 8)"
+readonly MOUNTPOINT="${WORKSPACE}/mnt"
 
 BATCHMODE=false
 KEYMAP="us"
