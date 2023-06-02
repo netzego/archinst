@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# DESC: update package database
+# DESC: synchronize pacman's master package database
 # ARGS: none
+# EXIT: if /var/lib/pacman/db.lck exists
+# TODO: test
 update_pacman() {
     print_header
 
@@ -10,6 +12,6 @@ update_pacman() {
     fi
 
     if ! pacman -Sy; then
-        die 1 "could not update package database"
+        die 1 "${FUNCNAME[0]}: could not synchronize the master database"
     fi
 }
