@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# DESC: Loads $PWD/$SCRIPTNAME.config file
-# ARGS: None
+# DESC: loads $PWD/$SCRIPTNAME.config file
+# ARGS: `$1` (optional): path to configfile
 # shellcheck disable=SC2154,SC1090
 load_configfile() {
-    if [ -e "${CONFIGFILE}" ]; then
-        source "${CONFIGFILE}"
-    else
-        die 1 "\`${CONFIGFILE}' not found"
+    local configfile="${1:-$CONFIGFILE}"
+
+    if ! source "${configfile}"; then
+        die 1 "\`${configfile}' could not be sourced"
     fi
 }

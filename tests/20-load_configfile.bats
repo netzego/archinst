@@ -4,16 +4,16 @@
 load "${BATS_TEST_DIRNAME}/setup_file.bash"
 load "${BATS_TEST_DIRNAME}/setup.bash"
 
-@test "include/load_configfile(): \$configfile exists" {
-    run -0 load_configfile
+@test "load_configfile \"\" (\$CONFIGFILE)" {
+    local configfile=""
+
+    run -0 load_configfile "${configfile}"
 }
 
-@test "include/load_configfile(): \$configfile do NOT exists [run as root]" {
-    [[ "$UID" -ne 0 ]] && skip
+@test "load_configfile \"${BATS_SUITE_TMPDIR}/not_exists\"" {
+    local configfile="${BATS_SUITE_TMPDIR}/not_exists"
 
-    unbind_readonly "CONFIGFILE"
+    run -1 load_configfile "${configfile}"
 
-    run -1 load_configfile
-
-    [ "${output}" = "${ERR_PREFIX} \`${CONFIGFILE}' not found" ]
+    [ "${lines[-1]}" = "${ERR_PREFIX} \`${configfile}' could not be sourced" ]
 }
