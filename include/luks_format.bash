@@ -31,8 +31,9 @@ luks_format() {
     else
         cryptsetup \
             --verbose \
-            --batch-mode \
             --type luks2 \
+            --batch-mode \
+            --verify-passphrase \
             luksFormat "${partition}"
     fi
 }
