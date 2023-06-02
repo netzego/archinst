@@ -9,6 +9,10 @@ load "fixtures.bash"
 setup_suite() {
     bats_require_minimum_version 1.5.0
 
+    # this var must be set explicity for bat. because this global var is
+    # set at the top of the main script and thus is not sources bt bats.
+    export SCRIPTDIR="$(dirname "${BATS_TEST_DIRNAME/../}")"
+
     export BATS_FIXTURE_PASSWORD="t3st"
     export BATS_FIXTURE_IMAGE="${BATS_SUITE_TMPDIR}/test.img"
 
