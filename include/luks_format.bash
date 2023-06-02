@@ -9,7 +9,7 @@ luks_format() {
     local partition="$1"
     local keyfile="$2"
 
-    print_header "${FUNCNAME[0]}"
+    print_header
 
     if [ ! -e "${partition}" ]; then
         die 1 "\`${partition}' do not exists"
