@@ -6,8 +6,8 @@
 # EXIT: if $1 partition do not exists
 #       if $1 partition is not a block device
 luks_format() {
-    local partition="$1"
-    local keyfile="$2"
+    local partition="${1:-$ROOTPART}"
+    local keyfile="${2}"
 
     print_header
 
