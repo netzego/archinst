@@ -3,17 +3,17 @@
 load "${BATS_TEST_DIRNAME}/setup_file.bash"
 load "${BATS_TEST_DIRNAME}/setup.bash"
 
-@test "check_network: archlinux.org" {
-    run -0 check_network
+@test "check_network: \$1=\"\" (uses fallback value)" {
+    run -0 check_network ""
 }
 
-@test "check_network: 8.8.8.8" {
-    local host="8.8.8.8"
+@test "check_network: \$1=\"1.1.1.1\"" {
+    local host="1.1.1.1"
 
-    run -0 check_network
+    run -0 check_network "${host}"
 }
 
-@test "check_network: test.tld" {
+@test "check_network: \$1=\"test.tld\"" {
     local host="test.tld"
 
     run -1 check_network "${host}"
@@ -21,7 +21,7 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
     [ "${lines[-1]}" == "${ERR_PREFIX} \`${host}' is not reachable" ]
 }
 
-@test "check_network: 128.128.128.128" {
+@test "check_network: \$1=\"128.128.128.128\"" {
     local host="128.128.128.128"
 
     run -1 check_network "${host}"
