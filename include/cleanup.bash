@@ -39,6 +39,15 @@ umount_workspace_mnt() {
     fi
 }
 
+# DESC: kill leftover gpg agent from pacstrap -K
+# ARGS: none
+kill_leftover_agent() {
+    if [ -n "$(pgrep -f 'gpg-agent --homedir')" ]; then
+        echo "killed gpg-agent zombie process from pacstrap"
+        kill $(pgrep -f "gpg-agent --homedir")
+    fi
+}
+
 # DESC: clean up artifacts on exit signals
 # ARGS: none
 # NOTE: this is meant to call from a trap
@@ -47,6 +56,7 @@ cleanup() {
 
     sync
 
+    kill_leftover_agent
     umount_workspace_mnt
     close_luks_partiton
     remove_workspace
