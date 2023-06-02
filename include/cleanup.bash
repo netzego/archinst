@@ -43,7 +43,7 @@ umount_workspace_mnt() {
 # ARGS: none
 # NOTE: this is meant to call from a trap
 cleanup() {
-    print_header "${FUNCNAME[0]}"
+    print_header
 
     umount_workspace_mnt
     close_luks_partiton
