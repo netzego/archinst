@@ -23,6 +23,18 @@ readonly PACKAGES=(
     vi
     # "${CPU}-ucode"
 )
+readonly SUBVOLUMES=(
+    # subvol:mountpoint
+    "@rootfs:/"
+    "@home:/home"
+    "@log:/var/log"
+    "@machines:/var/lib/machines"
+    "@pkgs:/var/cache/pacman/pkgs"
+    "@root:/root"
+    "@snapshots:/snapshots"
+    "@srv:/srv"
+    "@swap:/swap"
+)
 
 BATCHMODE=false
 KEYMAP="us"
