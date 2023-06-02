@@ -37,6 +37,7 @@ source "${SCRIPTDIR}/include/luks_open.bash"
 source "${SCRIPTDIR}/include/mkfs_btrfs.bash"
 source "${SCRIPTDIR}/include/mkfs_swapfile.bash"
     source "${SCRIPTDIR}/include/check_mountpoint.bash"
+    source "${SCRIPTDIR}/include/mount_btrfs.bash"
 
 # ARGS: none
 # NOTE: stdout and stderr will eventually get logged
