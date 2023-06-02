@@ -1,10 +1,13 @@
 #!/bin/bash
 
 # DESC: creates a luks2 partition
-# ARGS: $1: partition to use
-#       $2: luks keyfile
+# ARGS: `$1` (required): partition to use
+#       `$2` (optional): a luks keyfile. eg. `echo -n "t3st" > keyfile`
 # EXIT: if $1 partition do not exists
 #       if $1 partition is not a block device
+# EXPL: luks_format "/dev/sdX2" "/path/to/keyfile"
+# COND: $ROOTPART
+# TODO: check empty keyfile var
 luks_format() {
     local partition="${1:-$ROOTPART}"
     local keyfile="${2}"
