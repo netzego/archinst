@@ -20,8 +20,16 @@ luks_format() {
     fi
 
     if [ -f "${keyfile}" ]; then
-        cryptsetup --verbose --batch-mode --type luks2 luksFormat "${partition}" "${keyfile}"
+        cryptsetup \
+            --verbose \
+            --batch-mode \
+            --type luks2 \
+            luksFormat "${partition}" "${keyfile}"
     else
-        cryptsetup --verbose --batch-mode --type luks2 luksFormat "${partition}"
+        cryptsetup \
+            --verbose \
+            --batch-mode \
+            --type luks2 \
+            luksFormat "${partition}"
     fi
 }
