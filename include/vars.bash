@@ -9,6 +9,20 @@ readonly CONFIGFILE="${PWD}/${SCRIPTNAME}.config"
 readonly WORKSPACE="/tmp/${SCRIPTNAME}-$(openssl rand -hex 8)"
 readonly MOUNTPOINT="${WORKSPACE}/mnt"
 readonly BTRFS_OPTIONS="noatime,compress=zstd"
+readonly PACKAGES=(
+    # pacman packages
+    base
+    btrfs-progs
+    dosfstools
+    gptfdisk
+    linux-firmware
+    linux-lts
+    mkinitcpio
+    openssh
+    python
+    vi
+    # "${CPU}-ucode"
+)
 
 BATCHMODE=false
 KEYMAP="us"
