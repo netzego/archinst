@@ -52,6 +52,7 @@ source "${SCRIPTDIR}/include/mkfs_swapfile.bash"
     source "${SCRIPTDIR}/include/configure_networkd.bash"
     source "${SCRIPTDIR}/include/configure_timesyncd.bash"
     source "${SCRIPTDIR}/include/configure_sshd.bash"
+    source "${SCRIPTDIR}/include/copy_sshkeys.bash"
 
 # ARGS: none
 # NOTE: stdout and stderr will eventually get logged
