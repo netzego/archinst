@@ -21,6 +21,7 @@ readonly PACKAGES=(
     openssh
     python
     vi
+    # iwd
     # "${CPU}-ucode"
 )
 readonly SUBVOLUMES=(
