@@ -31,9 +31,25 @@ check_logfile() {
     fi
 }
 
+# DESC: check for global variable $LOCKFILE
+# ARGS: $1 (optional): the lockfile path
+# EXIT: if `$1` path prefix do not exists
+#       if `$1` is not a regular file
+#       if `$1` is not writeable
+check_lockfile() {
+    local lockfile="${1:-$LOCKFILE}"
+
+    check_path_prefix "${lockfile}"
+
+    if [ -e "${lockfile}" ]; then
+        die 1 "\`${lockfile}' exists"
+    fi
+}
+
 # DESC: allocated checks for cli args
 # ARGS: none
 # NOTE: this must run only after load_configfile and parse_args was called
 check_args() {
     check_logfile
+    check_lockfile
 }
