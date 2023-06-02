@@ -12,10 +12,23 @@ check_path_prefix() {
     fi
 }
 
-# DESC: check $LOGFILE path prefix
-# ARGS: none
+# DESC: check for global variable $LOGFILE
+# ARGS: $1 (optional): the logfile path
+# EXIT: if `$1` path prefix do not exists
+#       if `$1` is not a regular file
+#       if `$1` is not writeable
 check_logfile() {
-    check_path_prefix "${LOGFILE}"
+    local logfile="${1:-$LOGFILE}"
+
+    check_path_prefix "${logfile}"
+
+    if [ ! -e "${logfile}" ]; then
+        die 1 "\`${logfile}' does not exists"
+    fi
+
+    if [ ! -w "${logfile}" ]; then
+        die 1 "\`${logfile}' is not writable"
+    fi
 }
 
 # DESC: allocated checks for cli args
