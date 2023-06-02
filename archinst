@@ -57,8 +57,6 @@ readonly ARGS=("$@")
     source "${SCRIPTDIR}/include/remove_pam_securetty.bash"
 }
 
-# ARGS: none
-# NOTE: stdout and stderr will eventually get logged
 main() {
     if [ "${DEBUG}" = true ]; then
         print_vars
