@@ -45,6 +45,8 @@ umount_workspace_mnt() {
 cleanup() {
     print_header
 
+    sync
+
     umount_workspace_mnt
     close_luks_partiton
     remove_workspace
