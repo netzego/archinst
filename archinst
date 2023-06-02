@@ -65,65 +65,147 @@ main() {
     warning
 
     check_device "${DEVICE}"
-    check_network "archlinux.org" 2 1
-    load_keymap "${KEYMAP}"
-    check_timedate
-    update_mirrorlist
-    update_pacman
-    create_workspace
 
-    # disc preparation
-    write_gpt_table "${DEVICE}" "${UEFI_SIZE}"
+    # host preparation
+    {
+        check_network "archlinux.org" 2 1
+        load_keymap "${KEYMAP}"
+        check_timedate
+        update_mirrorlist
+        update_pacman
+        create_workspace
+    }
 
-    readonly UEFIPART="$(ls -1 "${DEVICE}"?1)"
-    readonly ROOTPART="$(ls -1 "${DEVICE}"?2)"
+    # device preparation
+    {
+        write_gpt_table "${DEVICE}" "${UEFI_SIZE}"
 
-    if [ ! -b "${UEFIPART}" ]; then
-        die 2 "\`${UEFIPART}' is not a block device"
-    fi
+        {
+            print_header "partitions"
 
-    if [ ! -b "${ROOTPART}" ]; then
-        die 2 "\`${ROOTPART}' is not a block device"
-    fi
+            readonly UEFIPART="$(ls -1 "${DEVICE}"?1)"
+            readonly ROOTPART="$(ls -1 "${DEVICE}"?2)"
 
-    luks_format "${ROOTPART}" "${PWD}/archinst.luks"
-    luks_open "${ROOTPART}" "${PWD}/archinst.luks"
+            if [ ! -b "${UEFIPART}" ]; then
+                die 2 "\`${UEFIPART}' is not a block device"
+            fi
 
-    readonly LUKSPART="$(lsblk --raw -n -p -o NAME,TYPE "${ROOTPART}" | grep crypt | cut -d ' ' -f 1)"
+            if [ ! -b "${ROOTPART}" ]; then
+                die 2 "\`${ROOTPART}' is not a block device"
+            fi
 
-    if [ ! -e "${LUKSPART}" ]; then
-        die 2 "\`${LUKSPART}' do not exists"
-    fi
+            info "uefipart" "${UEFIPART}"
+            info "rootpart" "${ROOTPART}"
+        }
 
-    mkfs_btrfs "${LUKSPART}"
-    mkfs_swapfile
+        luks_format "${ROOTPART}" "${PWD}/archinst.luks"
+        luks_open "${ROOTPART}" "${PWD}/archinst.luks"
+
+        {
+            print_header "luks2 partition"
+
+            readonly LUKSPART="$(lsblk --raw -n -p -o NAME,TYPE "${ROOTPART}" | grep crypt | cut -d ' ' -f 1)"
+
+            if [ ! -e "${LUKSPART}" ]; then
+                die 2 "\`${LUKSPART}' does not exists"
+            fi
+
+            info "lukspart" "${LUKSPART}"
+        }
+
+        mkfs_btrfs "${LUKSPART}"
+        mount_btrfs "${LUKSPART}"
+        mkfs_swapfile
+        mkfs_fat32 "${UEFIPART}"
+        mount_fat32
+
+        {
+            print_header "partition uuid"
+
+            readonly ROOTUUID="$(blkid -s UUID -o value "$ROOTPART")"
+            readonly LUKSUUID="$(blkid -s UUID -o value "${LUKSPART}")"
+
+            info "rootuuid" "${ROOTUUID}"
+            info "luksuuid" "${LUKSUUID}"
+        }
+    }
+
+    # installation
+    {
+        install_packages
+        gen_fstab
+        gen_locale
+        systemd_firstboot
+        install_bootloader
+        gen_cmdline "${ROOTUUID}" "${LUKSUUID}"
+        configure_initrd
+        gen_initrd
+    }
+
+    # configuration
+    {
+        configure_networkd
+        configure_timesyncd
+        configure_sshd
+        copy_sshkeys
+        remove_pam_securetty
+    }
+
+    # finshing
+    {
+        sync "${MOUNTPOINT}"
+        umount -v -R "${MOUNTPOINT}"
+        # congrats
+    }
 }
 
-check_root
-load_configfile
-parse_args "${ARGS[@]}"
-check_args
+init() {
+    check_root
 
-if [ "${#POS_ARGS[@]}" -ne 1 ]; then
-    print_usage
-    die 1 "you must specify a device"
-else
-    readonly DEVICE="${POS_ARGS[0]}"
-fi
+    # parse cli args
+    {
+        # load_configfile
+        source "${CONFIGFILE}"
+        parse_args "${ARGS[@]}"
 
-trap cleanup EXIT
+        # handle help and version case
+        {
+            if [ "${HELP}" = true ]; then
+                print_help
+                exit 0
+            fi
 
-if [ "${HELP}" = true ]; then
-    print_help
-    exit 0
-fi
+            if [ "${VERSION}" = true ]; then
+                print_version
+                exit 0
+            fi
+        }
 
-if [ "${VERSION}" = true ]; then
-    print_version
-    exit 0
-fi
+        # check global variables set thru getopt and configfile
+        {
+            # check_args # TODO: only check LOGFILE
 
-write_lockfile
+            check_logfile "${LOGFILE}"
+            check_lockfile "${LOCKFILE}"
+        }
+
+        # check for required positional cli arguments
+        {
+            if [ "${#POS_ARGS[@]}" -ne 1 ]; then
+                print_usage
+                die 1 "you must specify a device"
+            else
+                readonly DEVICE="${POS_ARGS[0]}"
+            fi
+        }
+    }
+
+    trap cleanup EXIT
+
+    write_lockfile
+}
+
+init
 main 2>&1 | tee "${LOGFILE}"
 
 exit 0
