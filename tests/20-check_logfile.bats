@@ -4,22 +4,37 @@
 load "${BATS_TEST_DIRNAME}/setup_file.bash"
 load "${BATS_TEST_DIRNAME}/setup.bash"
 
-@test "check_logfile(): LOGFILE=/dev/null" {
-    # LOGFILE=/dev/null from includes/vars.bash
+@test "check_logfile \"\" (/dev/null)" {
+    local logfile="" # uses default values /dev/null
 
-    run -0 check_logfile
+    run -0 check_logfile ""
 }
 
-@test "check_logfile(): LOGFILE=/tmp/not_exists" {
-    LOGFILE=/tmp/not_exists
+@test "check_logfile ${BATS_SUITE_TMPDIR}/not_exists" {
+    local logfile="${BATS_SUITE_TMPDIR}/not_exists"
 
-    run -0 check_logfile
-}
+    run -1 check_logfile "${logfile}"
 
-@test "check_logfile(): LOGFILE=/not_exists/logfile" {
-    LOGFILE=/not_exists/logfile
+    [ "${lines[-1]}" = "${ERR_PREFIX} \`${logfile}' does not exists" ]
+} 
 
-    run -1 check_logfile
+@test "check_logfile ${BATS_SUITE_TMPDIR}/not_writeable" {
+    [[ "$UID" -eq 0 ]] && skip
 
-    [ "${output}" = "${ERR_PREFIX} \`${LOGFILE}' path prefix do not exists" ]
+    local logfile="${BATS_SUITE_TMPDIR}/not_writeable"
+
+    touch "${logfile}"
+    chmod 110 "${logfile}"
+
+    run -1 check_logfile "${logfile}"
+
+    rm "${logfile}"
+} 
+
+@test "check_logfile ${BATS_SUITE_TMPDIR}/not_exists/logfile" {
+    local logfile="${BATS_SUITE_TMPDIR}/not_exists/logfile"
+
+    run -1 check_logfile "${logfile}"
+
+    [ "${lines[-1]}" = "${ERR_PREFIX} \`${logfile}' path prefix do not exists" ]
 }
