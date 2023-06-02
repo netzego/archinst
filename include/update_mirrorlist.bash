@@ -13,9 +13,9 @@ update_mirrorlist() {
         --save "${path}" \
         --latest 8 \
         --fastest 8 \
-        --age 12 \
+        --age 3 \
         --sort rate \
-        --protocol https \
+        --protocol http \
         --country "${countrylist}"
 
     cat "${path}"
