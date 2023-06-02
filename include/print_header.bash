@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# DESC: prints a header to stdout
-# ARGS: $1: headline to print
+# DESC: prints a header with the name of the calling function to stdout
+# ARGS: none
 print_header() {
-    local hl="$1"
+    local hl="${FUNCNAME[1]}"
 
     # print arow of dashes
     # shellcheck disable=SC1001
