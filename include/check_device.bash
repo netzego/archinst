@@ -1,14 +1,13 @@
 #!/bin/bash
 
-# DESC: check if $1 is a block device and if writeable else will exit with
-#       status code 1
-# ARGS: $1 path to a device
-# EXIT: if $1 NOT exists
-#       if $1 is NOT a block device
-#       if $1 is NOT writable
-#       if $1 is NOT attached to a file
+# DESC: check if `$1` is a block device and is writeable
+# ARGS: $1 (required): path to a device
+# EXIT: if `$1` do not exists
+#       if `$1` is not a block device
+#       if `$1` is not writable
+#       if `$1` is loop device but not attached to a file
 check_device() {
-    local device="$1"
+    local device="${1:-$DEVICE}"
 
     if [ ! -e "${device}" ]; then
         die 1 "\`${device}' do not exists"
