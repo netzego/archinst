@@ -6,8 +6,8 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
 
 @test "print_header(): normal output" {
 
-    run -0 print_header "test"
+    run -0 print_header
 
     # actually two lines, here we test the 2.
-    [[ "${output}" == *"--- test -" ]]
+    [[ "${lines[-1]}" == "--- bats"* ]]
 }
