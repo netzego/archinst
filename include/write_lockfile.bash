@@ -1,16 +1,10 @@
 #!/bin/bash
 
-# DESC: writes $LOCKFILE or exit
-# ARGS: none
-# EXIT: if $LOCKFILE already exists
-#       if $LOCKFILE path prefix does not exists
+# DESC: writes lockfile to path
+# ARGS: `$1` (optional): path of the lockfile
+# COND: $LOCKFILE
 write_lockfile() {
-    # shellcheck disable=SC2046
-    check_path_prefix "${LOCKFILE}"
+    local lockfile="${1:-$LOCKFILE}"
 
-    if [ -e "${LOCKFILE}" ]; then
-        die 1 "\`${LOCKFILE}' exists"
-    fi
-
-    touch "${LOCKFILE}"
+    touch "${lockfile}"
 }
