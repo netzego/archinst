@@ -5,6 +5,7 @@
 # ARGS: `$1` (optional): the directory containing the rootfs
 # COND: $WORKSPACE
 #       $MOUNTPOINT
+# TODO: deadcode, write tests
 configure_initrd() {
     local rootfs="${1:-$MOUNTPOINT}"
     local hooks=(
@@ -39,7 +40,7 @@ configure_initrd() {
     # few ram (2G). mkinitcpio do not finished on this machine. TODO: find a
     # way to maintain this inside the prefix. Probably via a direct call to
     # minitcpio without the -p or -P parameter. see mkinicpio(8).
-    sed -i 's%^fallback%#fallback%' "${rootfs}/etc/mkinitcpio.d/linux-lts.preset"
+    #sed -i 's%^fallback%#fallback%' "${rootfs}/etc/mkinitcpio.d/linux-lts.preset"
 
     # logs the .preset file
     cat "${rootfs}/etc/mkinitcpio.d/linux-lts.preset"
