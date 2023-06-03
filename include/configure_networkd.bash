@@ -2,18 +2,24 @@
 # shellcheck disable=SC2154
 
 # DESC: configure/enable basic network settings
-# ARGS: none
+# ARGS: `$1` (optional): directory of the rootfs
 # COND: $WORKSPACE
 #       $MOUNTPOINT
+# TODO: refactor systemd-resolved config
 configure_networkd() {
-    print_header "${FUNCNAME[0]}"
+    local rootfs="${1:-$MOUNTPOINT}"
 
-    systemd-nspawn -D "${MOUNTPOINT}" systemctl enable systemd-networkd.service
-    systemd-nspawn -D "${MOUNTPOINT}" systemctl enable systemd-resolved.service
+    print_header
 
-    ln -frs "${MOUNTPOINT}/usr/lib/systemd/network/80-ethernet.network.example" \
-        "${MOUNTPOINT}/etc/systemd/network/80-ethernet.network"
+    systemd-nspawn -D "${rootfs}" systemctl enable systemd-networkd.service
+    systemd-nspawn -D "${rootfs}" systemctl enable systemd-resolved.service
 
-    ln -frs "${MOUNTPOINT}/run/systemd/resolve/stub-resolv.conf" \
-        "${MOUNTPOINT}/etc/resolv.conf"
+    ln -frs "${rootfs}/usr/lib/systemd/network/80-ethernet.network.example" \
+        "${rootfs}/etc/systemd/network/80-ethernet.network"
+
+    ln -frs "${rootfs}/usr/lib/systemd/network/80-wifi-station.network.example" \
+        "${rootfs}/etc/systemd/network/80-wifi-station.network"
+
+    ln -frs "${rootfs}/run/systemd/resolve/stub-resolv.conf" \
+        "${rootfs}/etc/resolv.conf"
 }
