@@ -24,14 +24,18 @@ gen_initrd() {
         die 1 "\`${preset}' does not exists"
     fi
 
-    # this give us ${default_image} and ${default_uki}. among others. there
-    # is might a better way to get these two variables, without sourcing all?
+    # to run mkinitcpio without the -p or -P flag. we need some information
+    # of the kernel version and locations (uki, vmlinuz and initrd) we about
+    # to install. we can gather all from the /etc/mkinitcpio.d/*.preset
+    # file. which is a bash
     source "${preset}"
 
     systemd-nspawn -D "${rootfs}" \
         mkinitcpio --nocolor --verbose \
         --uki "${default_uki}" \
+        --kernel "${ALL_kver}" \
         --kernelimage "${default_image}"
 
-    lsinitcpio -l "${rootfs}/boot/initramfs-linux-lts.img"
+    # mkinitcpio --verbose is probably enough
+    # lsinitcpio -l "${rootfs}/boot/initramfs-linux-lts.img"
 }
