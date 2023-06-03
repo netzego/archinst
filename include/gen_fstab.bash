@@ -1,27 +1,26 @@
 #!/bin/bash
 
 # DESC: generates /etc/fstab
-# ARGS: none
-# EXIT: if $MOUNTPOINT is not directory
-#       if $MOUNTPOINT is not mountpoint
-#       if $MOUNTPOINT/swap/swapfile do not exists
+# ARGS: `$1` (optional): directory of the rootfs
+# EXIT: if `$rootfs` is not directory
+#       if `$rootfs` is not mountpoint
+#       if `$rootfs/swap/swapfile` does not exists
 # COND: $WORKSPACE
 #       $MOUNTPOINT
-#       mkfs_btrfs()
-#       mkfs_swapfile()
 # NOTE: temporally disables all swap files/devices on the host while
 #       activate the target swapfile
 gen_fstab() {
-    local swapfile="${MOUNTPOINT}/swap/swapfile"
+    local rootfs="${1:-$MOUNTPOINT}"
+    local swapfile="${rootfs}/swap/swapfile"
 
-    print_header "${FUNCNAME[0]}"
+    print_header
 
-    if [ ! -d "${MOUNTPOINT}" ]; then
-        die 1 "\`${MOUNTPOINT}' is not a directory"
+    if [ ! -d "${rootfs}" ]; then
+        die 1 "\`${rootfs}' is not a directory"
     fi
 
-    if ! mountpoint "${MOUNTPOINT}"; then
-        die 1 "\`${MOUNTPOINT}' is not a mountpoint"
+    if ! mountpoint "${rootfs}"; then
+        die 1 "\`${rootfs}' is not a mountpoint"
     fi
 
     if [ ! -f "${swapfile}" ]; then
@@ -31,7 +30,12 @@ gen_fstab() {
     swapoff --all
     swapon "${swapfile}"
 
-    genfstab -U "${MOUNTPOINT}" | tee "${MOUNTPOINT}/etc/fstab"
+    genfstab -U "${rootfs}"
+
+    # fix broken entries
+    sed -i 's/\/luks-[0-9a-f]\+/\/rootfs/' "${rootfs}/etc/fstab"
+
+    cat "${rootfs}/etc/fstab"
 
     swapoff "${swapfile}"
     swapon -a
