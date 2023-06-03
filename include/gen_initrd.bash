@@ -11,7 +11,10 @@ gen_initrd() {
 
     print_header
 
-    systemd-nspawn -D "${rootfs}" mkinitcpio --nocolor -p linux-lts
+    # TODO: do not use the -p or -P option. see: configure_initrd.bash.
+    # BUG: this breaks on live environment with low ram configuration
+    systemd-nspawn -D "${rootfs}" \
+        mkinitcpio --nocolor --verbose -p linux-lts
 
     lsinitcpio -l "${rootfs}/boot/initramfs-linux-lts.img"
 }
