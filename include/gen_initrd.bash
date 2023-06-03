@@ -34,7 +34,7 @@ gen_initrd() {
         mkinitcpio --nocolor --verbose \
         --uki "${default_uki}" \
         --kernel "${ALL_kver}" \
-        --kernelimage "${default_image}"
+        --kernelimage "${ALL_kver}"
 
     # mkinitcpio --verbose is probably enough
     # lsinitcpio -l "${rootfs}/boot/initramfs-linux-lts.img"
