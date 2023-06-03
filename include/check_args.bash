@@ -22,10 +22,6 @@ check_logfile() {
 
     check_path_prefix "${logfile}"
 
-    if [ ! -e "${logfile}" ]; then
-        die 1 "\`${logfile}' does not exists"
-    fi
-
     if [ ! -w "${logfile}" ]; then
         die 1 "\`${logfile}' is not writable"
     fi
