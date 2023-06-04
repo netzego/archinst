@@ -31,11 +31,9 @@ gen_initrd() {
     source "${preset}"
 
     systemd-nspawn -D "${rootfs}" \
-        mkinitcpio --nocolor --verbose \
+        mkinitcpio \
+        --nocolor \
         --uki "${default_uki}" \
         --kernel "${ALL_kver}" \
         --kernelimage "${ALL_kver}"
-
-    # mkinitcpio --verbose is probably enough
-    # lsinitcpio -l "${rootfs}/boot/initramfs-linux-lts.img"
 }
