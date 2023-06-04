@@ -8,5 +8,6 @@ linux-lts
 mkinitcpio
 openssh
 python
+rsync
 vi
 # "${CPU}-ucode"
