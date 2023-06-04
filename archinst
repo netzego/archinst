@@ -53,6 +53,7 @@ readonly ARGS=("$@")
     source "${SCRIPTDIR}/include/configure_networkd.bash"
     source "${SCRIPTDIR}/include/configure_timesyncd.bash"
     source "${SCRIPTDIR}/include/configure_sshd.bash"
+    source "${SCRIPTDIR}/include/add_user.bash"
     source "${SCRIPTDIR}/include/copy_sshkeys.bash"
     source "${SCRIPTDIR}/include/remove_pam_securetty.bash"
 }
@@ -151,6 +152,7 @@ main() {
         configure_networkd
         configure_timesyncd
         configure_sshd
+        add_user
         copy_sshkeys
         remove_pam_securetty
     }
