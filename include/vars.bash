@@ -35,5 +35,5 @@ UEFI_SIZE="265M"
 # default user config
 declare -g USER_NAME="archlinux"
 declare -g USER_UID="1000"
-declare -g USER_GROUPS=("user")
+declare -g USER_GROUPS=("users")
 declare -g USER_SHELL="/bin/bash"
