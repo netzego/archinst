@@ -53,3 +53,32 @@ is_array() {
         echo false
     fi
 }
+
+# DESC: declare a global array with values equal to lines (exclude empty
+#       lines and ons with trailing #) from files in `$@`. if files in
+#       `${@[2..-1]}` do not exists this function will not complain.
+#       the values of the declared array are unique and sorted.
+# ARGS: `$1` (required): the name of the global array which is defined
+#       `$@` (required): one ore more filenames to read
+# EXIT: if `$@` is empty
+#       if `${@[1]}` do not exists
+# EXPL: filearray "GLOBAL_VARNAME" "a.foo" "might_not_exists.bar"
+# TODO: write tests
+filearray() {
+    declare -r varname="$1"
+    shift
+    declare -ar files=("$@")
+
+    if [ ${#files} -lt 1 ]; then
+        die 1 "missing at least one filename"
+    fi
+
+    if [ ! -f "${files[0]}" ]; then
+        die 1 "\`${files[0]}' do not exists"
+    fi
+
+    # grep -v: inverts the matching patterns
+    # grep -s: suppress errors. in case `$2` do not exists.
+    # grep -h: suppress filenames in the output.
+    declare -agr "${varname}"="$(grep -shv "^#\|^\$" "${files[@]}" | sort -u)"
+}
