@@ -5,7 +5,7 @@
 #USER_UID="1000"
 
 # Array of of supplementary groups which the user is also a member of.
-#USER_GROUPS=("user")
+#USER_GROUPS=("users")
 
 # Sets the path to the user's login shell.
 #USER_SHELL="/bin/bash"
