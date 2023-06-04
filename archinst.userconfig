@@ -1,0 +1,13 @@
+# The login name of the user account.
+#USER_NAME="archlinux"
+
+# The numerical value of the user's ID. This value must be unique.
+#USER_UID="1000"
+
+# Array of of supplementary groups which the user is also a member of.
+#USER_GROUPS=("user")
+
+# Sets the path to the user's login shell.
+#USER_SHELL="/bin/bash"
+
+# vi: ft=sh
