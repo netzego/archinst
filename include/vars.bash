@@ -9,21 +9,7 @@ readonly CONFIGFILE="${PWD}/${SCRIPTNAME}.config"
 readonly WORKSPACE="/tmp/${SCRIPTNAME}-$(openssl rand -hex 8)"
 readonly MOUNTPOINT="${WORKSPACE}/mnt"
 readonly BTRFS_OPTIONS="noatime,compress=zstd"
-readonly PACKAGES=(
-    # pacman packages
-    base
-    btrfs-progs
-    dosfstools
-    gptfdisk
-    linux-firmware
-    linux-lts
-    mkinitcpio
-    openssh
-    python
-    vi
-    # iwd
-    # "${CPU}-ucode"
-)
+filearray "PACKAGES" "${SCRIPTDIR}/include/core.packages" "${PWD}/${SCRIPTNAME}.packages"
 readonly SUBVOLUMES=(
     # subvol:mountpoint
     "@rootfs:/"

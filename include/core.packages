@@ -1,0 +1,12 @@
+# pacman default packages
+base
+btrfs-progs
+dosfstools
+gptfdisk
+linux-firmware
+linux-lts
+mkinitcpio
+openssh
+python
+vi
+# "${CPU}-ucode"
