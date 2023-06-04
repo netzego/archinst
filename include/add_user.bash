@@ -29,7 +29,7 @@ add_user() {
         --uid "${USER_UID}" \
         --user-group \
         --password "$(cat "${PWD}/${SCRIPTNAME}.userhash")" \
-        --groups "$(echo -n "${USER_GROUPS}" | tr " " ",")" \
+        --groups "$(echo -n "${USER_GROUPS[@]}" | tr " " ",")" \
         --shell "${USER_SHELL}" \
         "${USER_NAME}"
 }
