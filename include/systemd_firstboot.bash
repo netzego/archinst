@@ -2,7 +2,7 @@
 # shellcheck disable=SC2154
 
 # DESC: run systemd-firtsboot
-# ARGS: none
+# ARGS: `$1` (optional): path to the rootfs
 # EXIT: if ${PWD}/archinst.roothash do not exists
 # COND: $WORKSPACE
 #       $MOUNTPOINT
@@ -10,26 +10,29 @@
 #       $TIMEZONE
 #       $HOSTNAME
 #       $KEYMAP
+# TODO: cleanup
 systemd_firstboot() {
-    local locale="${LOCALE}"
-    local timezone="${TIMEZONE}"
-    local hostname="${HOSTNAME}"
-    local keymap="${KEYMAP}"
-    # local cmdline="rd.luks.name=${luks_uuid}=root root=UUID=${root_uuid} rw ${CMDLINE_EXTRA}"
-    local hashed_pw_file="${PWD}/${SCRIPTNAME}.roothash"
+    declare -r rootfs="${1:-${MOUNTPOINT}}"
+    declare -r locale="${LOCALE}"
+    declare -r timezone="${TIMEZONE}"
+    declare -r hostname="${HOSTNAME}"
+    declare -r keymap="${KEYMAP}"
+    declare -r shell="${DEFAULT_SHELL}"
+    declare -r hashfile="${PWD}/${SCRIPTNAME}.roothash"
+    # declare -r cmdline="rd.luks.name=${luks_uuid}=root root=UUID=${root_uuid} rw ${CMDLINE_EXTRA}"
 
-    print_header "${FUNCNAME[0]}"
+    print_header
 
-    if [ ! -f "${hashed_pw_file}" ]; then
-        die 1 "\`${hashed_pw_file}' does not exists"
+    if [ ! -f "${hashfile}" ]; then
+        die 1 "\`${hashfile}' does not exists"
     fi
 
     systemd-nspawn -D "${MOUNTPOINT}" \
         systemd-firstboot \
         --force \
-        --root-password-hashed="$(cat "${hashed_pw_file}")" \
+        --root-password-hashed="$(cat "${hashfile}")" \
         --locale="${locale}" \
-        --root-shell="/bin/bash" \
+        --root-shell="${shell}" \
         --timezone="${timezone}" \
         --hostname="${hostname}" \
         --keymap="${keymap}"
