@@ -7,9 +7,9 @@
 #       $MOUNTPOINT
 # TODO: checks, tests, naming
 copy_sshkeys() {
-    local pubkeyfile="${PWD}/${SCRIPTDIR}/${SCRIPTNAME}.pubkey"
+    local pubkeyfile="${PWD}/${SCRIPTNAME}.pubkey"
 
-    print_header "${FUNCNAME[0]}"
+    print_header
 
     if [[ -f "${pubkeyfile}" ]]; then
         cp -v "${pubkeyfile}" "${mountpoint}/root/.ssh/authorized_keys"
