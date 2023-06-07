@@ -54,15 +54,16 @@ is_array() {
     fi
 }
 
-# DESC: declare a global array with values equal to lines (exclude empty
-#       lines and ons with trailing #) from files in `$@`. if files in
-#       `${@[2..-1]}` do not exists this function will not complain.
-#       the values of the declared array are unique and sorted.
+# DESC: declare a global readonly array with values equal to lines
+#       (exclude empty lines and ons with trailing #) from files in
+#       `$@`. if files in `${@[2..-1]}` do not exists this function
+#       will not complain. the values of the declared array are
+#       unique and sorted.
 # ARGS: `$1` (required): the name of the global array which is defined
-#       `$@` (required): one ore more filenames to read
+#       `$@` (required): one ore more filenames to read in
 # EXIT: if `$@` is empty
 #       if `${@[1]}` do not exists
-# EXPL: filearray "GLOBAL_VARNAME" "a.foo" "might_not_exists.bar"
+# EXPL: filearray "VARNAME" "a.foo" [ "not.exists" "b.bar" ... ]
 # TODO: write tests
 filearray() {
     declare -r varname="$1"
