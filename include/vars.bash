@@ -31,6 +31,7 @@ LOCALE="en_US.UTF-8"
 SWAP_SIZE="4G"
 TIMEZONE="Europe/Berlin"
 UEFI_SIZE="265M"
+DEFAULT_SHELL="/bin/bash"
 
 # default user config
 declare -g USER_NAME="archlinux"
