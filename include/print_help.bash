@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# DESC: print help msg to stdout
+# ARGS: none
 # shellcheck disable=SC2154
 print_help() {
     echo "${SCRIPTNAME} (v${VERSION_NUMBER})"
