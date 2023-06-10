@@ -6,5 +6,7 @@
 write_lockfile() {
     local lockfile="${1:-$LOCKFILE}"
 
+    print_header
+
     touch "${lockfile}"
 }
