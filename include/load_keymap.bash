@@ -1,12 +1,13 @@
 #!/bin/bash
 
 # DESC: load a console keyboard layout
-# ARGS: $1: keymap to to load
+# ARGS: `$1` (optional): keymap to to load
 # NOTE: list all maps via `ls /usr/share/kbd/keymaps/**/*.map.gz`
+# TODO: clean up; test if check is unnecessary due strict mode
 load_keymap() {
     local map="${1:-us}"
 
-    print_header "${FUNCNAME[0]}"
+    print_header
 
     loadkeys "${map}" &>/dev/null
 
