@@ -25,7 +25,7 @@ readonly_args() {
 }
 
 # DESC: test if string do NOT start with a hyphen
-# ARGS: $1: string to test
+# ARGS: `$1` (required): string to test
 exif_startwith_hyphen() {
     local arg="$1"
 
@@ -35,7 +35,7 @@ exif_startwith_hyphen() {
 }
 
 # DESC: wraps getopt to parse cli arguments and sets global parameters
-# ARGS: $@: arguments from the cli
+# ARGS: `$@` (required): arguments from the cli
 # NOTE: an example is found here /usr/share/doc/util-linux
 # shellcheck disable=SC2154,SC2034
 parse_args() {
