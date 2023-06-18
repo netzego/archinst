@@ -7,7 +7,7 @@
 #       $MOUNTPOINT
 # TODO: checks, tests
 configure_sshd() {
-    print_header "${FUNCNAME[0]}"
+    print_header
 
     systemd-nspawn -D "${MOUNTPOINT}" systemctl enable sshd.service
 }
