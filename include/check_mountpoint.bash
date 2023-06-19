@@ -6,7 +6,7 @@
 # ARGS: `$1` (required): path to mountpoint
 # TODO: write tests
 check_mountpoint() {
-    local mntpoint="${1}"
+    declare -r mntpoint="${1}"
 
     if [ ! -d "${mntpoint}" ]; then
         die 1 "\`${mntpoint}' is not a directory"
