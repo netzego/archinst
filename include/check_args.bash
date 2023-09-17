@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# DESC: check if path prefix exists and is writable
+# DESC: check if path prefix exist
 # ARGS: $1 (required): path to check
 # EXIT: if path prefix do not exists
 check_path_prefix() {
