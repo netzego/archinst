@@ -21,8 +21,6 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
 
     # this should actualy pass, cause if logf. doesn't exist it should be created
     run -0 check_logfile "${logfile}"
-
-    [ "${lines[-1]}" = "${ERR_PREFIX} \`${logfile}' does not exists" ]
 } 
 
 @test "check_logfile ${BATS_SUITE_TMPDIR}/not_writeable" {
