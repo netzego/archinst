@@ -9,6 +9,16 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
     run -0 check_lockfile
 }
 
+@test "check_lockfile \"/tmp/archinst.lock\"" {
+    local lockfile="/tmp/archinst.lock" # default value set thru vars.bash
+
+    touch "${lockfile}"
+
+    ls -l "${lockfile}"
+
+    run -1 check_lockfile "${lockfile}"
+
+    rm -v "${lockfile}"
 }
 
 @test "check_lockfile ${BATS_SUITE_TMPDIR}/exists" {
