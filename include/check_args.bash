@@ -38,7 +38,7 @@ check_logfile() {
 check_lockfile() {
     local lockfile="${1:-$LOCKFILE}"
 
-    check_path_prefix "${lockfile}"
+    # check_path_prefix "${lockfile}"
 
     if [ -e "${lockfile}" ]; then
         die 1 "\`${lockfile}' exists"
