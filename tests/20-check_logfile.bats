@@ -4,8 +4,8 @@
 load "${BATS_TEST_DIRNAME}/setup_file.bash"
 load "${BATS_TEST_DIRNAME}/setup.bash"
 
-@test "check_logfile \"\" (/dev/null)" {
-    local logfile="" # uses default values /dev/null
+@test "check_logfile \"\"" {
+    local logfile=""
 
     run -0 check_logfile ""
 }
