@@ -29,7 +29,8 @@ check_logfile() {
     fi
 }
 
-# DESC: check for global variable $LOCKFILE
+# DESC: check if file specify in $LOCKFILE exists. fails if it actually
+#       exist ;-)
 # ARGS: $1 (optional): the lockfile path
 # EXIT: if `$1` path prefix do not exists
 #       if `$1` is not a regular file
