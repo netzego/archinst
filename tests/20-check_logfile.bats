@@ -10,10 +10,17 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
     run -0 check_logfile ""
 }
 
+@test "check_logfile \"/dev/null\" (default value)" {
+    local logfile="/dev/null"
+
+    run -0 check_logfile
+}
+
 @test "check_logfile ${BATS_SUITE_TMPDIR}/not_exists" {
     local logfile="${BATS_SUITE_TMPDIR}/not_exists"
 
-    run -1 check_logfile "${logfile}"
+    # this should actualy pass, cause if logf. doesn't exist it should be created
+    run -0 check_logfile "${logfile}"
 
     [ "${lines[-1]}" = "${ERR_PREFIX} \`${logfile}' does not exists" ]
 } 
