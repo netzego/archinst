@@ -192,7 +192,6 @@ init() {
             # check_args # TODO: only check LOGFILE
 
             check_logfile "${LOGFILE}"
-            check_lockfile "${LOCKFILE}"
         }
 
         # check for required positional cli arguments
@@ -208,7 +207,8 @@ init() {
 
     trap cleanup EXIT
 
-    write_lockfile
+    check_lockfile "${LOCKFILE}"
+    write_lockfile "${LOCKFILE}"
 }
 
 init
