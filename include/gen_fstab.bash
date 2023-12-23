@@ -30,7 +30,7 @@ gen_fstab() {
     swapoff --all
     swapon "${swapfile}"
 
-    genfstab -U "${rootfs}" >"${rootfs/etc/fstab}"
+    genfstab -U "${rootfs}" >"${rootfs}/etc/fstab"
 
     # # fix broken entries
     # sed -i 's/\/luks-[0-9a-f]\+/\/rootfs/' "${rootfs}/etc/fstab"
