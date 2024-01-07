@@ -18,7 +18,7 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
     unbind_readonly "LOCKFILE"
 
     # shellcheck disable=SC2030
-    LOCKFILE="/non_exists/${SCRIPTNAME}.lock"
+    declare -gr LOCKFILE="/non_exists/${SCRIPTNAME}.lock"
 
     run -1 write_lockfile
 
