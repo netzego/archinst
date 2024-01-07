@@ -13,7 +13,7 @@ filearray "PACKAGES" "${SCRIPTDIR}/include/core.packages" "${PWD}/${SCRIPTNAME}.
 readonly SUBVOLUMES=(
     # subvol:mountpoint
     "@rootfs:/"
-    "@home:/home"
+    # "@home:/home"
     "@log:/var/log"
     "@machines:/var/lib/machines"
     "@pkgs:/var/cache/pacman/pkgs"

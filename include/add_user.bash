@@ -26,6 +26,7 @@ add_user() {
     systemd-nspawn -D "${rootfs}" \
         useradd \
         --create-home \
+        --btrfs-subvolume-home \
         --uid "${USER_UID}" \
         --user-group \
         --password "$(cat "${PWD}/${SCRIPTNAME}.userhash")" \
