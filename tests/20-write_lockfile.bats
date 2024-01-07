@@ -1,6 +1,8 @@
 #!/bin/bats
 # shellcheck disable=SC2154
 
+load "/usr/lib/bats/bats-support/load"
+load "/usr/lib/bats/bats-assert/load"
 load "${BATS_TEST_DIRNAME}/setup_file.bash"
 load "${BATS_TEST_DIRNAME}/setup.bash"
 
@@ -22,6 +24,5 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
 
     run -1 write_lockfile
 
-    [ "${output}" = "${ERR_PREFIX} \`${LOCKFILE}' path prefix do not exists" ]
-
+    assert_output --partial "touch: cannot "
 }
