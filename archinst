@@ -84,12 +84,12 @@ main() {
         {
             print_header "partitions"
 
-            shopt -s extglob
+            # shopt -s extglob
 
-            readonly UEFIPART="$(ls -1 "${DEVICE}"*(p)1)"
-            readonly ROOTPART="$(ls -1 "${DEVICE}"*(p)2)"
+            readonly UEFIPART="$(ls -1 "${DEVICE}"*1)"
+            readonly ROOTPART="$(ls -1 "${DEVICE}"*2)"
 
-            shopt -u extglob
+            # shopt -u extglob
 
             if [ ! -b "${UEFIPART}" ]; then
                 die 2 "\`${UEFIPART}' is not a block device"
