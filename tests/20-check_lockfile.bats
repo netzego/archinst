@@ -6,6 +6,7 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
 
 @test "check_lockfile w/ no args (/tmp/archinst.lock do NOT exist)" {
 
+    # TODO: this is not smart. what if /tmp/archinst.lock exists
     run -0 check_lockfile
 }
 
