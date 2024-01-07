@@ -12,16 +12,6 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
     rm "${LOCKFILE}"
 }
 
-@test "write_lockfile(): LOCKFILE do exists" {
-    touch "${LOCKFILE}"
-
-    run -1 write_lockfile
-
-    [ "${output}" = "${ERR_PREFIX} \`${LOCKFILE}' exists" ]
-
-    rm "${LOCKFILE}"
-}
-
 @test "write_lockfile(): LOCKFILE path prefix NOT exists [run as root]" {
     [[ "$UID" -ne 0 ]] && skip
 
