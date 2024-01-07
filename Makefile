@@ -1,12 +1,12 @@
-SHELL			:= bash
-.SHELLFLAGS		:= -eu -o pipefail -c
-MAKEFLAGS		+= --warn-undefined-variables
-MAKEFLAGS		+= --no-builtin-rules
-PROGNAME		:= archinst
-BATS			!= which bats
-BATS_OPTIONS	:= --verbose-run --show-output-of-passing-tests
-BATS_GLOB		?=
-CLI_ARGS		?=
+SHELL        := bash
+.SHELLFLAGS  := -eu -o pipefail -c
+MAKEFLAGS    += --warn-undefined-variables
+MAKEFLAGS    += --no-builtin-rules
+PROGNAME     := archinst
+BATS         != which bats
+BATS_OPTIONS := --verbose-run --show-output-of-passing-tests
+BATS_GLOB    ?=
+CLI_ARGS     ?=
 
 test:
 	@$(BATS) $(BATS_OPTIONS) -r tests/$(BATS_GLOB)
