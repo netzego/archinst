@@ -28,6 +28,6 @@ load "${BATS_TEST_DIRNAME}/setup.bash"
     touch "${lockfile}"
 
     run -1 check_lockfile "${lockfile}"
-    
+
     rm -v "${lockfile}"
 }
