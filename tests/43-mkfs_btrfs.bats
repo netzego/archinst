@@ -4,13 +4,13 @@
 load "${BATS_TEST_DIRNAME}/setup_file.bash"
 load "${BATS_TEST_DIRNAME}/setup.bash"
 
-@test "mkfs_btrfs(): ${BATS_FIXTURE_DEVICE}p2" {
-    local device="${BATS_FIXTURE_DEVICE}p2"
+@test "mkfs_btrfs(): ${BATS_FIXTURE_DEVICE}" {
+    declare -r device="${BATS_FIXTURE_DEVICE}"
+    declare -r mntpoint="${BATS_SUITE_TMPDIR}/mnt"
 
-    run -0 create_workspace
-    run -0 mkfs_btrfs "${device}"
+    mkdir -vp "${mntpoint}"
 
-    umount -v -R "${WORKSPACE}/mnt"
+    run -0 mkfs_btrfs "${device}" "${mntpoint}"
 
     rm -vfr "${WORKSPACE}"
 }
