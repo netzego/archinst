@@ -13,9 +13,9 @@ readonly BTRFS_OPTIONS="noatime,compress=zstd"
 # default user config
 source "${PWD}/${SCRIPTNAME}.userconfig"
 declare -gr USER_NAME="${USER_NAME:-archlinux}"
-declare -gr USER_UID="${USER_NAME:-1000}"
-declare -gr USER_GROUPS="${USER_NAME:-users}"
-declare -gr USER_SHELL="${USER_NAME:-/bin/bash}"
+declare -gr USER_UID="${USER_UID:-1000}"
+declare -gr USER_GROUPS="${USER_GROUPS:-users}"
+declare -gr USER_SHELL="${USER_SHELL:-/bin/bash}"
 
 filearray "PACKAGES" "${SCRIPTDIR}/include/core.packages" "${PWD}/${SCRIPTNAME}.packages"
 readonly SUBVOLUMES=(
