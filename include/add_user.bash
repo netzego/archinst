@@ -9,8 +9,8 @@
 # TODO: write tests
 add_user() {
     # declare -r configfile="${1:-${PWD}/${SCRIPTNAME}.userconfig}"
-    declare -r pwhashfile="${2:-${PWD}/${SCRIPTNAME}.userhash}"
-    declare -r rootfs="${3:-${MOUNTPOINT}}"
+    declare -r pwhashfile="${1:-${PWD}/${SCRIPTNAME}.userhash}"
+    declare -r rootfs="${2:-${MOUNTPOINT}}"
 
     print_header
 
