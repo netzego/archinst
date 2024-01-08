@@ -32,4 +32,12 @@ add_user() {
         --groups "$(echo -n "${USER_GROUPS[@]}" | tr " " ",")" \
         --shell "${USER_SHELL}" \
         "${USER_NAME}"
+
+    systemd-nspawn -D "${rootfs}" \
+        chown \
+        "${USER_NAME}":"${USER_NAME}" \
+        "/home/${USER_NAME}"
+
+    systemd-nspawn -D "${rootfs}" \
+        chmod 0700 "/home/${USER_NAME}"
 }
