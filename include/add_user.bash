@@ -8,16 +8,16 @@
 # EXPL: add_user "./userconfig" "./userhash" "/mnt"
 # TODO: write tests
 add_user() {
-    declare -r configfile="${1:-${PWD}/${SCRIPTNAME}.userconfig}"
+    # declare -r configfile="${1:-${PWD}/${SCRIPTNAME}.userconfig}"
     declare -r pwhashfile="${2:-${PWD}/${SCRIPTNAME}.userhash}"
     declare -r rootfs="${3:-${MOUNTPOINT}}"
 
     print_header
 
-    if [ -f "${configfile}" ]; then
-        # shellcheck source=./archinst.userconfig
-        source "${configfile}"
-    fi
+    # if [ -f "${configfile}" ]; then
+    #     # shellcheck source=./archinst.userconfig
+    #     source "${configfile}"
+    # fi
 
     if [ ! -f "${pwhashfile}" ]; then
         die "password hashfile \`${pwhashfile}' does not exists"
