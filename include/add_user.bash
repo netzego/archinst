@@ -25,6 +25,7 @@ add_user() {
 
     systemd-nspawn -D "${rootfs}" \
         useradd \
+        --home-dir "/home/${USER_NAME}" \
         --uid "${USER_UID}" \
         --user-group \
         --password "$(cat "${PWD}/${SCRIPTNAME}.userhash")" \
