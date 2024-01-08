@@ -1,0 +1,22 @@
+#!/usr/bin/bats
+# shellcheck disable=SC2154
+
+load "${BATS_TEST_DIRNAME}/setup_file.bash"
+load "${BATS_TEST_DIRNAME}/setup.bash"
+
+# NOTE: should be run after `install_packages`
+
+@test "check_rootfs \"\" (${MOUNTPOINT})" {
+    local device="${BATS_FIXTURE_DEVICE}p2"
+    local rootfs=""
+
+    run -0 create_workspace
+    run -0 mkfs_btrfs "${device}"
+    run -0 check_rootfs "${rootfs}"
+
+    umount -v -R "${WORKSPACE}/mnt"
+
+    rm -vfr "${WORKSPACE}"
+
+    # [ "${lines[-1]}" == "${ERR_PREFIX} warning: \$1 is empty" ]
+}
