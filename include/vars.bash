@@ -9,11 +9,19 @@ readonly CONFIGFILE="${PWD}/${SCRIPTNAME}.config"
 readonly WORKSPACE="/tmp/${SCRIPTNAME}-$(openssl rand -hex 8)"
 readonly MOUNTPOINT="${WORKSPACE}/mnt"
 readonly BTRFS_OPTIONS="noatime,compress=zstd"
+
+# default user config
+source "${PWD}/${SCRIPTNAME}.userconfig"
+declare -gr USER_NAME="${USER_NAME:-archlinux}"
+declare -gr USER_UID="${USER_NAME:-1000}"
+declare -gr USER_GROUPS="${USER_NAME:-users}"
+declare -gr USER_SHELL="${USER_NAME:-/bin/bash}"
+
 filearray "PACKAGES" "${SCRIPTDIR}/include/core.packages" "${PWD}/${SCRIPTNAME}.packages"
 readonly SUBVOLUMES=(
     # subvol:mountpoint
     "@rootfs:/"
-    # "@home:/home"
+    "@${USER_NAME}:/home/${USER_NAME}"
     "@log:/var/log"
     "@machines:/var/lib/machines"
     "@pkgs:/var/cache/pacman/pkgs"
@@ -32,9 +40,3 @@ SWAP_SIZE="4G"
 TIMEZONE="Europe/Berlin"
 UEFI_SIZE="265M"
 DEFAULT_SHELL="/bin/bash"
-
-# default user config
-declare -g USER_NAME="archlinux"
-declare -g USER_UID="1000"
-declare -g USER_GROUPS=("users")
-declare -g USER_SHELL="/bin/bash"
