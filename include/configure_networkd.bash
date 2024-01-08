@@ -14,7 +14,7 @@ configure_networkd() {
     systemd-nspawn -D "${rootfs}" systemctl enable systemd-networkd.service
     systemd-nspawn -D "${rootfs}" systemctl enable systemd-resolved.service
 
-    ln -frs "${rootfs}/usr/lib/systemd/network/80-ethernet.network.example" \
+    ln -frs "${rootfs}/usr/lib/systemd/network/89-ethernet.network.example" \
         "${rootfs}/etc/systemd/network/80-ethernet.network"
 
     ln -frs "${rootfs}/usr/lib/systemd/network/80-wifi-station.network.example" \
