@@ -27,9 +27,10 @@ systemd_firstboot() {
         die 1 "\`${hashfile}' does not exists"
     fi
 
-    systemd-nspawn -D "${MOUNTPOINT}" \
-        systemd-firstboot \
+    # systemd-nspawn -D "${MOUNTPOINT}" \
+    systemd-firstboot \
         --force \
+        --root "${MOUNTPOINT}" \
         --root-password-hashed="$(cat "${hashfile}")" \
         --locale="${locale}" \
         --root-shell="${shell}" \
