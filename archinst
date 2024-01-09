@@ -84,12 +84,12 @@ main() {
         {
             print_header "partitions"
 
-            # shopt -s extglob
-
-            readonly UEFIPART="$(ls -1 "${DEVICE}"?1)"
-            readonly ROOTPART="$(ls -1 "${DEVICE}"?2)"
-
-            # shopt -u extglob
+            # on a tested chromebook maybe a mmblkNbootN is present.  this
+            # is why we need the `tail -n 1`. because mmblkNpN comes after the
+            # boot partition.
+            # TODO: find a "cleaner" solution
+            readonly UEFIPART="$(ls -1 "${DEVICE}"*1 | tail -n 1)"
+            readonly ROOTPART="$(ls -1 "${DEVICE}"*2 | tail -n 1)"
 
             if [ ! -b "${UEFIPART}" ]; then
                 die 2 "\`${UEFIPART}' is not a block device"
