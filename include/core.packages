@@ -10,4 +10,4 @@ openssh
 python
 rsync
 vi
-# "${CPU}-ucode"
+"${CPU}-ucode"
