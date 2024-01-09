@@ -25,4 +25,8 @@ install_packages() {
 
     # shellcheck disable=SC2086,SC2048
     pacstrap -K "${rootdir}" ${pkgs[*]}
+
+    if [[ -n "${CPU}" ]]; then
+        pacstrap -K "${rootdir}" "${CPU}-ucode"
+    fi
 }
