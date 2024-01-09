@@ -86,8 +86,8 @@ main() {
 
             # shopt -s extglob
 
-            readonly UEFIPART="$(ls -1 "${DEVICE}"*1)"
-            readonly ROOTPART="$(ls -1 "${DEVICE}"*2)"
+            readonly UEFIPART="$(ls -1 "${DEVICE}"?1)"
+            readonly ROOTPART="$(ls -1 "${DEVICE}"?2)"
 
             # shopt -u extglob
 
