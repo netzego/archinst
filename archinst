@@ -88,8 +88,10 @@ main() {
             # is why we need the `tail -n 1`. because mmblkNpN comes after the
             # boot partition.
             # TODO: find a "cleaner" solution
-            readonly UEFIPART="$(ls -1 "${DEVICE}"*1 | tail -n 1)"
-            readonly ROOTPART="$(ls -1 "${DEVICE}"*2 | tail -n 1)"
+            # readonly UEFIPART="$(ls -1 "${DEVICE}"*1 | tail -n 1)"
+            # readonly ROOTPART="$(ls -1 "${DEVICE}"*2 | tail -n 1)"
+            declare -rg UEFIPART="$(lsblk -nro NAME "${DEVICE}" | grep "1$" | grep -v "boot")"
+            declare -rg ROOTPART="$(lsblk -nro NAME "${DEVICE}" | grep "2$")"
 
             if [ ! -b "${UEFIPART}" ]; then
                 die 2 "\`${UEFIPART}' is not a block device"
@@ -127,8 +129,10 @@ main() {
         {
             print_header "partition uuid"
 
-            readonly ROOTUUID="$(blkid -s UUID -o value "${ROOTPART}")"
-            readonly LUKSUUID="$(blkid -s UUID -o value "${LUKSPART}")"
+            # readonly ROOTUUID="$(blkid -s UUID -o value "${ROOTPART}")"
+            # readonly LUKSUUID="$(blkid -s UUID -o value "${LUKSPART}")"
+            declare -gr ROOTUUID="$(lsblk -rno UUID "${ROOTPART}")"
+            declare -gr LUKSUUID="$(lsblk -rno UUID "${LUKSPART}")"
 
             info "rootuuid" "${ROOTUUID}"
             info "luksuuid" "${LUKSUUID}"
