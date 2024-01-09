@@ -109,6 +109,7 @@ main() {
         {
             print_header "luks2 partition"
 
+            # TODO: clean up
             readonly LUKSPART="$(lsblk --raw -n -p -o NAME,TYPE "${ROOTPART}" | grep crypt | cut -d ' ' -f 1)"
 
             if [ ! -e "${LUKSPART}" ]; then
