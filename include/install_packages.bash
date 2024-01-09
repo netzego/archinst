@@ -12,6 +12,7 @@
 install_packages() {
     local pkgs=${1:-${PACKAGES[@]}}
     local rootdir=${2:-$MOUNTPOINT}
+    local cpu=$(vendor_cpu)
 
     print_header
 
@@ -26,7 +27,7 @@ install_packages() {
     # shellcheck disable=SC2086,SC2048
     pacstrap -K "${rootdir}" ${pkgs[*]}
 
-    if [[ -n "${CPU}" ]]; then
-        pacstrap -K "${rootdir}" "${CPU}-ucode"
+    if [[ -n "${cpu}" ]]; then
+        pacstrap -K "${rootdir}" "${cpu}-ucode"
     fi
 }

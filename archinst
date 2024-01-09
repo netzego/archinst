@@ -42,6 +42,7 @@ readonly ARGS=("$@")
     source "${SCRIPTDIR}/include/mkfs_swapfile.bash"
     source "${SCRIPTDIR}/include/mkfs_fat32.bash"
     source "${SCRIPTDIR}/include/mount_fat32.bash"
+    source "${SCRIPTDIR}/include/cpu_vendor.bash"
     source "${SCRIPTDIR}/include/install_packages.bash"
     source "${SCRIPTDIR}/include/gen_fstab.bash"
     source "${SCRIPTDIR}/include/gen_locale.bash"
