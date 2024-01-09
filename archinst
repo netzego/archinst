@@ -127,7 +127,7 @@ main() {
         {
             print_header "partition uuid"
 
-            readonly ROOTUUID="$(blkid -s UUID -o value "$ROOTPART")"
+            readonly ROOTUUID="$(blkid -s UUID -o value "${ROOTPART}")"
             readonly LUKSUUID="$(blkid -s UUID -o value "${LUKSPART}")"
 
             info "rootuuid" "${ROOTUUID}"
