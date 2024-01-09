@@ -84,14 +84,9 @@ main() {
         {
             print_header "partitions"
 
-            # on a tested chromebook maybe a mmblkNbootN is present.  this
-            # is why we need the `tail -n 1`. because mmblkNpN comes after the
-            # boot partition.
-            # TODO: find a "cleaner" solution
-            # readonly UEFIPART="$(ls -1 "${DEVICE}"*1 | tail -n 1)"
-            # readonly ROOTPART="$(ls -1 "${DEVICE}"*2 | tail -n 1)"
-            declare -rg UEFIPART="$(lsblk -nro NAME "${DEVICE}" | grep "1$" | grep -v "boot")"
-            declare -rg ROOTPART="$(lsblk -nro NAME "${DEVICE}" | grep "2$")"
+            # on a chromebook maybe a mmblkNbootN is present?!
+            declare -rg UEFIPART="/dev/$(lsblk -nro NAME "${DEVICE}" | grep "1$")" # get part 1
+            declare -rg ROOTPART="/dev/$(lsblk -nro NAME "${DEVICE}" | grep "2$")" # get part 2
 
             if [ ! -b "${UEFIPART}" ]; then
                 die 2 "\`${UEFIPART}' is not a block device"
@@ -103,6 +98,9 @@ main() {
 
             info "uefipart" "${UEFIPART}"
             info "rootpart" "${ROOTPART}"
+
+            [[ -n "${ROOTPART}" ]] && die 2 "\`${ROOTPART}' is not set"
+            [[ -n "${LUKSPART}" ]] && die 2 "\`${LUKSPART}' is not set"
         }
 
         luks_format "${ROOTPART}" "${PWD}/archinst.luks"
@@ -129,13 +127,14 @@ main() {
         {
             print_header "partition uuid"
 
-            # readonly ROOTUUID="$(blkid -s UUID -o value "${ROOTPART}")"
-            # readonly LUKSUUID="$(blkid -s UUID -o value "${LUKSPART}")"
             declare -gr ROOTUUID="$(lsblk -rno UUID "${ROOTPART}")"
             declare -gr LUKSUUID="$(lsblk -rno UUID "${LUKSPART}")"
 
             info "rootuuid" "${ROOTUUID}"
             info "luksuuid" "${LUKSUUID}"
+
+            [[ -n "${ROOTUUID}" ]] && die 2 "\`${ROOTUUID}' is not set"
+            [[ -n "${LUKSUUID}" ]] && die 2 "\`${LUKSUUID}' is not set"
         }
     }
 
