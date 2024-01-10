@@ -100,8 +100,8 @@ main() {
             info "uefipart" "${UEFIPART}"
             info "rootpart" "${ROOTPART}"
 
-            [[ -n "${ROOTPART}" ]] && die 2 "\`${ROOTPART}' is not set"
-            [[ -n "${LUKSPART}" ]] && die 2 "\`${LUKSPART}' is not set"
+            [[ -z "${ROOTPART}" ]] && die 2 "\`${ROOTPART}' is not set"
+            [[ -z "${UEFIPART}" ]] && die 2 "\`${UEFIPART}' is not set"
         }
 
         luks_format "${ROOTPART}" "${PWD}/archinst.luks"
@@ -129,14 +129,14 @@ main() {
         {
             print_header "partition uuid"
 
-            declare -gr ROOTUUID="$(lsblk -rno UUID "${ROOTPART}")"
+            declare -gr ROOTUUID="$(lsblk --nodeps -rno UUID "${ROOTPART}")"
             declare -gr LUKSUUID="$(lsblk -rno UUID "${LUKSPART}")"
 
             info "rootuuid" "${ROOTUUID}"
             info "luksuuid" "${LUKSUUID}"
 
-            [[ -n "${ROOTUUID}" ]] && die 2 "\`${ROOTUUID}' is not set"
-            [[ -n "${LUKSUUID}" ]] && die 2 "\`${LUKSUUID}' is not set"
+            [[ -z "${ROOTUUID}" ]] && die 2 "\`${ROOTUUID}' is not set"
+            [[ -z "${LUKSUUID}" ]] && die 2 "\`${LUKSUUID}' is not set"
         }
     }
 
