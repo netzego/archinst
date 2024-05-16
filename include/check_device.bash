@@ -13,9 +13,9 @@ check_device() {
         die 1 "\`${device}' do not exists"
     fi
 
-    if [ ! -b "${device}" ]; then
-        die 1 "\`${device}' is not a block device"
-    fi
+    # if [ ! -b "${device}" ]; then
+    #     die 1 "\`${device}' is not a block device"
+    # fi
 
     if [ ! -w "${device}" ]; then
         die 1 "\`${device}' is not writable"
